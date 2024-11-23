@@ -1,0 +1,26 @@
+
+{% include 'supermercado/base.html' %}
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.descripcion}}</td>
+        <td>{{producto.precio}}</td>
+      </tr>
+        {% endfor %}
+    </tbody>
+    
+  </table>
+  <a href="{% url 'agregar_productos' %}">Agregar Producto</a>
+  {% endblock %}
