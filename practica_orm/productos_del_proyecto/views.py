@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Producto
 from .forms import ProductoForm
+from django.http import HttpResponse
 
 def lista_productos(request):
     productos = Producto.objects.all()
@@ -22,5 +23,10 @@ def agregar_productos(request):
         return redirect('lista_productos')
     return render(request, 'supermercado/agregar_producto.html')
 
-
+def mostrar_cadena(request, cadena):
+    
+    if cadena:
+        return HttpResponse(f'El username es: {cadena}')
+    else:
+        return HttpResponse('La cadena no puede estar vacía.')
 
