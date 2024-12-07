@@ -1,0 +1,29 @@
+
+{% include 'supermercado/base.html' %}
+{% block content %}
+<div class="container mt-6">
+  <h1 class="text-center mb-4">Información de Productos</h1>
+  <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+          <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Descripción</th>
+              <th>Vencimiento</th>
+          </tr>
+      </thead>
+      <tbody>
+          
+              <tr>
+                  <td>{{ producto.nombre }}</td>
+                  <td>${{ producto.precio }}</td>
+                  <td>{{ producto.descripcion }}</td>
+                  <td>{{ producto.f_vencimiento|date:"F d, Y" }}</td>
+              </tr>
+          
+      </tbody>
+  </table>
+
+  <a href="{% url 'agregar_productos' %}">Agregar Producto</a>
+</div>
+  {% endblock %}

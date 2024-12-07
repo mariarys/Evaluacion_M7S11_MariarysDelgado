@@ -23,10 +23,14 @@ def agregar_productos(request):
         return redirect('lista_productos')
     return render(request, 'supermercado/agregar_producto.html')
 
-def mostrar_cadena(request, cadena):
-    
-    if cadena:
-        return HttpResponse(f'El username es: {cadena}')
-    else:
-        return HttpResponse('La cadena no puede estar vacía.')
+def mostrar_producto(request, pk):
+    try:
+        producto = Producto.objects.get(pk = pk)
+    except Producto.DoesNotExist:
+        return HttpResponse("Producto no encontrado", status=404)
+
+    context = {
+        'producto': producto,
+    }
+    return render(request, 'supermercado/detalle_producto.html', context)
 
