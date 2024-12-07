@@ -9,13 +9,18 @@ def lista_productos(request):
 
 def agregar_productos(request):
     if request.method == 'POST':
-        form = ProductoForm(request.POST)
-        if form. is_valid():
-            form.save()
-            return redirect('lista_productos')
-    else:
-        form = ProductoForm()
-    return render(request,'supermercado/agregar_producto.html',{'form': form })
+        nombre = request.POST.get('nombre')
+        precio = request.POST.get('precio')
+        descripcion = request.POST.get('descripcion')
+        f_vencimiento = request.POST.get('fecha_vencimiento')
+        Producto.objects.create(
+            nombre=nombre,
+            precio=precio,
+            descripcion=descripcion,
+            f_vencimiento=f_vencimiento
+        )
+        return redirect('lista_productos')
+    return render(request, 'supermercado/agregar_producto.html')
 
 
 
