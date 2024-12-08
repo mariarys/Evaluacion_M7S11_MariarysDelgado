@@ -1,7 +1,9 @@
-from django.shortcuts import render,redirect
-from .models import Producto
-from .forms import ProductoForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib import messages
+from .models import Producto
+from .forms import ProductoForm, CustomUserCreationForm
+
 
 def lista_productos(request):
     productos = Producto.objects.all()
@@ -33,4 +35,15 @@ def mostrar_producto(request, pk):
         'producto': producto,
     }
     return render(request, 'supermercado/detalle_producto.html', context)
+
+def ingresar_usuario(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "¡El usuario se ha registrado exitosamente!")
+            return redirect('ingresr_usuario')  # Asegúrate de tener una vista 'login' configurada
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'supermercado/ingresar_usuario.html', {'form': form})
 
